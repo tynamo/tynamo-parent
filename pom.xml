@@ -2,15 +2,14 @@
 
 	<name>Tynamo Parent</name>
 	<url>http://tynamo.org/</url>
-	<description>In version 0.1.0, Tynamo moved source control from Codehaus SVN to Github and started using Github's issue management instead of Codehaus.
-	CI system, mailing list management, release repo sync etc. other features will still stay at Codehaus.
-	</description>
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tynamo</groupId>
 	<artifactId>tynamo-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1.0-SNAPSHOT</version>
+	<!-- Model-driven Java web framework based on Tapestry 5. In version 0.1.0, Tynamo moved source control from Codehaus SVN to Github and started using Github's issue management instead of Codehaus.
+	CI system, mailing list management, release repo sync etc. other features will still stay at Codehaus.
+	-->
 
 	<parent>
 		<groupId>org.codehaus</groupId>
