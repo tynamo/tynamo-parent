@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<name>Tynamo Parent</name>
-	<url>http://tynamo.org/</url>
+	<url>http://www.tynamo.org/</url>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tynamo</groupId>
 	<artifactId>tynamo-parent</artifactId>
@@ -76,17 +76,13 @@
 
 	<mailingLists>
 		<mailingList>
-			<name>Tynamo User List</name>
-			<subscribe>http://xircles.codehaus.org/manage_email/user@tynamo.codehaus.org</subscribe>
-			<unsubscribe>http://xircles.codehaus.org/manage_email/user@tynamo.codehaus.org</unsubscribe>
-			<post>user@tynamo.codehaus.org</post>
-			<archive>http://archive.tynamo.codehaus.org/users</archive>
-			<!-- Not enabled yet
-			<otherArchives>
-				<otherArchive>http://www.nabble.com/-Users-f27435.html</otherArchive>
-			</otherArchives>
-			-->
+			<name>Tapestry User List</name>
+			<subscribe>users-subscribe@tapestry.apache.org</subscribe>
+			<unsubscribe>users-unsubscribe@tapestry.apache.org</unsubscribe>
+			<post>users@tapestry.apache.org</post>
+			<archive>http://markmail.org/search/?q=list%3Aorg.apache.tapestry.users</archive>
 		</mailingList>
+			<!-- We currently don't have a dev list after Codehaus went bust
 		<mailingList>
 			<name>Tynamo Developer List</name>
 			<subscribe>http://xircles.codehaus.org/manage_email/dev@tynamo.codehaus.org</subscribe>
@@ -94,6 +90,7 @@
 			<post>dev@tynamo.codehaus.org</post>
 			<archive>http://archive.tynamo.codehaus.org/dev</archive>
 		</mailingList>
+			-->
 	</mailingLists>
 	<scm>
 		<connection>scm:git:git@github.com:tynamo/tynamo-parent.git</connection>
@@ -122,7 +119,7 @@
 	<distributionManagement>
 		<site>
 			<id>tynamo-site</id>
-			<url>https://github.com/tynamo/tynamo.github.io</url>
+			<url>gitsite:git@github.com/tynamo/${project.artifactId}.git</url>
 		</site>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -140,6 +137,30 @@
 	</issueManagement>
 
 	<build>
+		<!-- these extensions are needed for wagon-gitsite to work (http://khuxtable.github.io/wagon-gitsite/) but we actually don't currently use it because 
+		publishing through mvn scm-publish:publish-scm (also configured below) is much faster. There exists a few different forks of the original wagon-gitsite:
+			org.kathrynhuxtable.maven.wagon:0.3.1
+			org.kohsuke:wagon:wagon-gitsite:0.3.5
+			com.github.stephenc.wagon:wagon-gitsite:0.4.1		
+		-->
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.scm</groupId>
+				<artifactId>maven-scm-provider-gitexe</artifactId>
+				<version>1.3</version>
+			</extension>
+			<extension>
+				<groupId>org.apache.maven.scm</groupId>
+				<artifactId>maven-scm-manager-plexus</artifactId>
+				<version>1.3</version>
+			</extension>
+			<extension>
+				<groupId>com.github.stephenc.wagon</groupId>
+				<artifactId>wagon-gitsite</artifactId>
+				<version>0.4.1</version>
+			</extension>
+		</extensions>		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -204,14 +225,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.3</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.wagon</groupId>
-							<artifactId>wagon-webdav</artifactId>
-							<version>1.0-beta-2</version>
-						</dependency>
-					</dependencies>		
+					<version>3.4</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
@@ -242,6 +256,21 @@
 		</pluginManagement>
 
 		<plugins>
+			<!-- from http://blog.progs.be/517/publishing-javadoc-to-github-using-maven 
+			gh-pages orphan branch *must be* created before!
+			-->
+			<plugin>
+				<artifactId>maven-scm-publish-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<checkoutDirectory>${project.build.directory}/scmpublish</checkoutDirectory>
+					<checkinComment>Publish site for ${project.artifactId}:${project.version}</checkinComment>
+					<content>${project.reporting.outputDirectory}</content>
+					<skipDeletedFiles>true</skipDeletedFiles>
+					<pubScmUrl>scm:git:git@github.com:tynamo/${project.artifactId}.git</pubScmUrl>
+					<scmBranch>gh-pages</scmBranch>
+				</configuration>
+			</plugin>			
 			<plugin>
 				<artifactId>maven-idea-plugin</artifactId>
 				<version>2.2</version>
