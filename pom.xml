@@ -324,7 +324,11 @@
 					<!-- By default, do not deploy site, especially for the parent itself-->
 					<goals>deploy</goals>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<releaseProfiles>release,ossrh</releaseProfiles>					
+					<releaseProfiles>release,ossrh</releaseProfiles>
+					<!-- The newer release plugins don't enable the release profiles for the 
+						whole duration of release:perform but only deploy part. We need release available 
+						as gpg and attach sources is activated based on it -->
+					<arguments>-Prelease</arguments>					
 				</configuration>
 			</plugin>
 		</plugins>
