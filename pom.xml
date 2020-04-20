@@ -324,7 +324,6 @@
 					<!-- By default, do not deploy site, especially for the parent itself-->
 					<goals>deploy</goals>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
 					<releaseProfiles>release,ossrh</releaseProfiles>					
 				</configuration>
 			</plugin>
