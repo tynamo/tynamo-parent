@@ -6,7 +6,7 @@
 	<groupId>org.tynamo</groupId>
 	<artifactId>tynamo-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.3.0</version>
+	<version>0.3.1-SNAPSHOT</version>
 	<!-- Model-driven Java web framework based on Tapestry 5. In version 0.1.0, Tynamo moved source control from Codehaus SVN to Github and started using Github's issue management instead of Codehaus.
 	CI system, mailing list management, release repo sync etc. other features will still stay at Codehaus. In version 0.2.0, Tynamo removed codehaus-parent and 
 	started releasing to Sonatype OSSRH (https://issues.sonatype.org/browse/OSSRH-16108). 0.3.0 was started after some break in 2020, when Tapestry 5.5
@@ -97,7 +97,7 @@
 		<connection>scm:git:git@github.com:tynamo/tynamo-parent.git</connection>
 		<developerConnection>scm:git:git@github.com:tynamo/tynamo-parent.git</developerConnection>
 		<url>https://github.com/tynamo/tynamo-parent</url>
-	  <tag>tynamo-parent-0.3.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<prerequisites>
