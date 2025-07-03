@@ -92,13 +92,7 @@
 		<system>travis</system>
 		<url>https://travis-ci.org/tynamo</url>
 	</ciManagement>
-	 -->
-
-	<distributionManagement>
-		<site>
-			<id>tynamo-site</id>
-			<url>gitsite:git@github.com/tynamo/${project.artifactId}.git</url>
-		</site>
+	
 		<snapshotRepository>
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -107,6 +101,13 @@
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>		
+	 -->
+
+	<distributionManagement>
+		<site>
+			<id>tynamo-site</id>
+			<url>gitsite:git@github.com/tynamo/${project.artifactId}.git</url>
+		</site>
 	</distributionManagement>
 
 	<issueManagement>
@@ -309,6 +310,17 @@
 					<arguments>-Prelease</arguments>					
 				</configuration>
 			</plugin>
+	        <plugin>
+	          <groupId>org.sonatype.central</groupId>
+	          <artifactId>central-publishing-maven-plugin</artifactId>
+	          <version>0.8.0</version>
+	          <extensions>true</extensions>
+	          <configuration>
+				<autoPublish>true</autoPublish>
+				<waitUntil>validated</waitUntil>	          
+	            <publishingServerId>central</publishingServerId>
+	          </configuration>
+	        </plugin>			
 		</plugins>
 	</build>
 
